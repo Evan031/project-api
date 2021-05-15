@@ -1,2 +1,2 @@
 # project-api
-Semantica API Wordpress Plugi
+Semantica API Wordpress Plugin
