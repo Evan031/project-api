@@ -1,3 +1,41 @@
-* {
-    border: red solid 1px;
+.row.display-flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.thumbnail {
+	height: 100%;
+}
+
+.thumbnail-container {
+    background-color: #f7f7f7;
+    padding: 5% 0%;
+}
+
+.main-content.col-sm-12 {
+	padding: 0% !important;
+}
+
+.thumbnail-container .thumbnail {
+    display: block;
+    padding: 5%;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+    box-shadow: 0px 15px 24px 4px rgb(0 0 0 / 7%);
+}
+
+.post-thumbnail, .entry-content .wp-audio-shortcode, .entry-content > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator):not(.woocommerce), *[class*=inner-container] > *:not(.entry-content):not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator):not(.woocommerce), .default-max-width {
+    max-width: 100% !important;
+}
+
+.entry .entry-content, .entry .entry-summary {
+	max-width: 100% !important;
+    margin: 0 0% !important;
+    padding: 0px !important;
 }

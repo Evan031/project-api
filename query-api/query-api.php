@@ -50,14 +50,22 @@
 			$valid_response = wp_remote_retrieve_body( $response );
 		}
 		
-		$output .= "<div class='Test'>";
+		$output .= "<div class='container-fluid thumbnail-container'>";
+		$output .= "<div class='row display-flex'>";
 		$response_objects = json_decode($valid_response, true);
 		$response_objects_count = count($response_objects);
 		for ($response_item = 0; $response_item < $response_objects_count; $response_item++) {
-			$output .= $response_objects[$response_item]["title"].": \n
-			<strong>Excerpt: </strong>".$response_objects[$response_item]["excerpt"]."\n
-			<strong>Image: </strong> ".$response_objects[$response_item]["featured_image"]."<br><br>";
+			$output .= "<div class='col-md-4'>\n
+							<div class='thumbnail'>\n
+								<img class='img-responsive' src='".$response_objects[$response_item]["featured_image"]."' >\n
+								<div class='caption'>\n
+									<h2>".$response_objects[$response_item]["title"]."</h2>
+									<p>".$response_objects[$response_item]["excerpt"]."</p>\n
+								</div>
+							</div>
+						</div>";
 		}
+		$output .= "</div>";
 		$output .= "</div>";
 		
 		
@@ -68,8 +76,8 @@
 	add_shortcode('shortcode', 'query_shortcode_function');
 
 	function include_scripts(){
-		wp_register_style( 'my_css',  plugin_dir_url( __FILE__ ) . 'includes/css/style.css' );
-		wp_register_style( 'my_css',  plugin_dir_url( __FILE__ ) . 'includes/css/bootstrap.min.css' );
+		wp_enqueue_style( 'query_api_style',  plugin_dir_url( __FILE__ ) . 'includes/css/style.css' );
+		wp_enqueue_style( 'query_api_bootstrap',  plugin_dir_url( __FILE__ ) . 'includes/css/bootstrap.min.css' );
 	}
 
 	add_action('wp_enqueue_scripts', 'include_scripts');
