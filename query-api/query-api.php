@@ -39,27 +39,37 @@
 		);
 
 		$response = wp_remote_get( $url, $arguments );
+		
 
 		if ( is_wp_error( $response ) ) {
-			$error_message = $response->get_error_message();
-			return "Something went wrong: $error_message";
-		} else {
 			echo '<pre>';
-			$valid_response = wp_remote_retrieve_body( $response );
-			var_dump( $valid_response );
+			$error_message = $response->get_error_message();
+			var_dump( "Something went wrong: $error_message" );
 			echo '</pre>';
+		} else {
+			$valid_response = wp_remote_retrieve_body( $response );
 		}
 		
-		$decode_response = var_dump(json_decode($valid_response, true));
+		$output .= "<div class='Test'>";
+		$response_objects = json_decode($valid_response, true);
+		$response_objects_count = count($response_objects);
+		for ($response_item = 0; $response_item < $response_objects_count; $response_item++) {
+			$output .= $response_objects[$response_item]["title"].": \n
+			<strong>Excerpt: </strong>".$response_objects[$response_item]["excerpt"]."\n
+			<strong>Image: </strong> ".$response_objects[$response_item]["featured_image"]."<br><br>";
+		}
+		$output .= "</div>";
 		
-		return $decode_response;
+		
+		return $output;
+		
 	}
 
 	add_shortcode('shortcode', 'query_shortcode_function');
 
 	function include_scripts(){
 		wp_register_style( 'my_css',  plugin_dir_url( __FILE__ ) . 'includes/css/style.css' );
-		wp_enqueue_style( 'my_css' );
+		wp_register_style( 'my_css',  plugin_dir_url( __FILE__ ) . 'includes/css/bootstrap.min.css' );
 	}
 
 	add_action('wp_enqueue_scripts', 'include_scripts');
